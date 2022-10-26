@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+    <servlet>
+        <servlet-name>UserDelete</servlet-name>
+        <servlet-class>UserDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserDelete</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserInsert</servlet-name>
+        <servlet-class>UserInsert</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserInsert</servlet-name>
+        <url-pattern>/insert</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserUpdate</servlet-name>
+        <servlet-class>UserUpdate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserUpdate</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserSelect</servlet-name>
+        <servlet-class>UserSelect</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserSelect</servlet-name>
+        <url-pattern>/select</url-pattern>
+    </servlet-mapping>
+</web-app>

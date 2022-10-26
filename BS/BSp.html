@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .title{
+        margin-bottom: 20px;
+        background-color: gray;
+        line-height: 50px;
+        font-size: 20px;
+        text-align: center;
+        vertical-align: center;
+    }
+    .body{
+        width: 100%;
+    }
+    .displaydate{
+        overflow: hidden;
+        background-color: gray;
+        height: calc(98vh - 100px);
+    }
+    .displaydate::after{
+        clear: both;
+        content: "";
+    }
+    .buttons{
+        float: left;
+        width: 100px;
+        height: 100%;
+        background-color: rgb(94, 91, 91);
+        
+    }
+    .buttons div{
+        height: 20%;
+        margin-top: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .buttons div:hover{
+        background-color: #759aBD;
+    }
+    .displaydates{
+        overflow: hidden;
+        height: 100%;
+    }
+    #fixed{
+        position: fixed;
+        z-index: 1;
+        background-color: rgb(94, 91, 91);
+        right: 5px;
+        bottom: 5px;
+        text-align: center;
+    }
+    #fixed input{
+        display: block;
+        width: 20vw;
+        margin: 5px;
+
+    }
+    .spanc{
+        display: inline-block;
+        width: 25%;
+    }
+    .disa{
+        text-align: center;
+        margin-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: solid 1px black;
+    }
+</style>
+<body>
+    <div class="title">个人通讯录</div>
+    <div class="displaydate">
+        <div class="buttons" onclick="useroptions(event)">
+            <div>查看</div>
+            <div>修改</div>
+            <div>删除</div>
+            <div>新增</div>
+        </div>
+        <div class="displaydates">
+            <div id="display" style="margin: 20px;border:1px solid black">
+
+            </div>
+        </div>
+    </div>
+    <div id="fixed">
+        <input name="id" type="text" placeholder="id"/>
+        <input name="name" type="text" placeholder="name"/>
+        <input name="adress" type="text" placeholder="adress"/>
+        <input name="phone" type="text" placeholder="phone"/>
+    </div>
+    
+    <script>
+        async function useroptions(event){
+            switch(event.target.innerText){
+                case "查看": {
+                    console.log("查看")
+                    let rs=await http("select");
+                    let display=document.getElementById("display");
+                    display.innerHTML=""
+                    for(let i in rs){
+                        let dis=document.createElement("div")
+                        dis.className="disa"
+                        for(let j in rs[i]){
+                        let block=document.createElement("span")
+                        block.innerText=rs[i][j];
+                        block.className="spanc";
+                        dis.appendChild(block);
+                        }
+                        display.appendChild(dis)
+                    }
+                    return;}
+                case "修改": {
+                    let obj={}
+                    let fixed=document.getElementsByTagName('input')
+                    obj.id=fixed[0].value
+                    obj.name=fixed[1].value
+                    obj.adress=fixed[2].value
+                    obj.phone=fixed[3].value
+                    await http("update",obj); 
+                    break;}
+                case "删除": {
+                    let obj={}
+                    let fixed=document.getElementsByTagName('input')
+                    obj.id=fixed[0].value
+                    await http("delete",obj); 
+                     break;}
+                case "新增": {
+                    let obj={}
+                    let fixed=document.getElementsByTagName('input')
+                    obj.name=fixed[1].value
+                    obj.adress=fixed[2].value
+                    obj.phone=fixed[3].value
+                    await http("insert",obj); 
+                    break;}
+            }
+            console.log("执行")
+            useroptions({target:{innerText:"查看"}})
+        }
+        async function http(name,obj=null){
+            let url="http://localhost:8080/"+name;
+            let j=0;
+            for(let i in obj){
+                url=url+(j==0?"?":"&")+i+"="+obj[i]
+                j++;
+            }
+            try{
+            let response=await fetch(url,
+            {method:'GET',
+            mode:'cors'
+            }
+            );
+            return await response.json()
+            }catch(e){}
+        } 
+    </script>
+</body>
+</html>

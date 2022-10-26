@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/BSb/web/WEB-INF/lib/javax.servlet-api-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/BSb/web/WEB-INF/lib/fastjson-1.2.59.jar!/" />
+      <root url="jar://$PROJECT_DIR$/BSb/web/WEB-INF/lib/mysql-connector-j-8.0.31.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
